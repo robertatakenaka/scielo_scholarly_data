@@ -1,2 +1,2 @@
-# scielo_rdc
-SciELO Raw Data Collector (rdc) is a repository wich contains a set of a set of raw data collection tools from various external sources for loading on the data lake.
+# SciELO Data Lake Tools
+SciELO Data Lake Tools is a repository wihch contains a set of tools to insert dat in the data lake or get data from the data lake.
