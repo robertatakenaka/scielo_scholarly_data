@@ -16,3 +16,18 @@ def list_content(bucket_name):
 
     for b in bucket.list_blobs():
         print(b.name)
+
+
+def download_file(bucket_name, source_file_name, destination_file_name):
+    bucket = _connect(bucket_name)
+    blob = bucket.blob(source_file_name)
+
+    try:
+        blob.download_to_filename(destination_file_name)
+    except NotFound:
+        print('No such file or directory ({}) or bucket name ({})'.format(source_file_name, bucket_name))
+    except IsADirectoryError:
+        print('Destination file name {} could not be a directory'.format(destination_file_name))
+    else:
+        print('Downloaded storage object {} from bucket {} to local file {}.'.format(source_file_name, bucket_name, destination_file_name))
+
