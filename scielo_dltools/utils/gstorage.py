@@ -11,8 +11,7 @@ def _connect(bucket_name):
 
 
 def list_content(bucket_name):
-    storage_client = storage.Client()
-    bucket = storage_client.bucket(bucket_name)
+    bucket = _connect(bucket_name)
 
     for b in bucket.list_blobs():
         print(b.name)
