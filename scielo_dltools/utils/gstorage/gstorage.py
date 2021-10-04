@@ -44,3 +44,15 @@ def upload_file(bucket_name, source_file_name, destination_file_name):
     else:
         print('File {} uploaded to {}.'.format(source_file_name, destination_file_name))
 
+
+def rename_file(bucket_name, source_file_name, destination_file_name):
+    bucket = _connect(bucket_name)
+
+    try:
+        blob = bucket.get_blob(source_file_name)
+        bucket.rename_blob(blob, destination_file_name)
+    except FileNotFoundError:
+        print('No such file or directory: {}'.format(source_file_name))
+    else:
+        'File {} renamed to {}.'.format(source_file_name, destination_file_name)
+
