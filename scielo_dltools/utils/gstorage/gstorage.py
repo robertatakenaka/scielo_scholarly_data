@@ -31,3 +31,16 @@ def download_file(bucket_name, source_file_name, destination_file_name):
     else:
         print('Downloaded storage object {} from bucket {} to local file {}.'.format(source_file_name, bucket_name, destination_file_name))
 
+
+def upload_file(bucket_name, source_file_name, destination_file_name):
+    bucket = _connect(bucket_name)
+    blob = bucket.blob(destination_file_name)
+    blob.metadata = {'upload_datetime': datetime.utcnow()}
+
+    try:
+        blob.upload_from_filename(source_file_name)
+    except FileNotFoundError:
+        print('No such file or directory: {}'.format(source_file_name))
+    else:
+        print('File {} uploaded to {}.'.format(source_file_name, destination_file_name))
+
