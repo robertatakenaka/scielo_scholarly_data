@@ -7,7 +7,7 @@ SciELO Data Lake Tools is a repository which contains a set of tools to insert d
 ## Installation
 
 ```shell
-virtualenv -p python3.10 .venv
+virtualenv -p python3.9 .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 ```
