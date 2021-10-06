@@ -13,7 +13,7 @@ pip install -r requirements.txt
 
 ## Environment variables
 
-`GOOGLE_APPLICATION_CREDENTIALS=/home/user/key.json`
+`export GOOGLE_APPLICATION_CREDENTIALS="/home/user/key.json"`
 
 ## Usage
 
@@ -37,39 +37,39 @@ python gbq.py load_table_from_uri gs://scielo-datalake-raw/scielo-analytics/braz
 
 __Download data__
 ```shell
-# python gstorage.py download BUCKET_NAME SOURCE_FILE DESTINATION_FILE
+# python gcs.py download BUCKET_NAME SOURCE_FILE DESTINATION_FILE
 # example
-python gstorage.py download scielo-datalake-raw pid-dates/pid-dates-2020-11-27.csv pid-dates.csv
+python gcs.py download scielo-datalake-raw pid-dates/pid-dates-2020-11-27.csv pid-dates.csv
 ```
 
 __Upload data__
 ```shell
-# python gstorage.py upload BUCKET_NAME SOURCE_FILE DESTINATION_FILE
+# python gcs.py upload BUCKET_NAME SOURCE_FILE DESTINATION_FILE
 # example
-python gstorage.py upload scielo-datalake-standardized pid-dates.csv pid-dates/pid-dates.csv
+python gcs.py upload scielo-datalake-standardized pid-dates.csv pid-dates/pid-dates.csv
 ```
 
 __List bucket content__
 ```shell
-# python gstorage.py upload BUCKET_NAME
+# python gcs.py upload BUCKET_NAME
 # example
-python gstorage.py list scielo-datalake-raw
+python gcs.py list scielo-datalake-raw
 ```
 
 __Rename file__
 ```shell
-# python gstorage.py upload BUCKET_NAME SOURCE_FILE DESTINATION_FILE
+# python gcs.py upload BUCKET_NAME SOURCE_FILE DESTINATION_FILE
 # example 1
-python gstorage.py rename scielo-datalake-raw pid-dates/pid-dates-2020-11-27.csv pid-dates/pid-dates-latest.csv
+python gcs.py rename scielo-datalake-raw pid-dates/pid-dates-2020-11-27.csv pid-dates/pid-dates-latest.csv
 # example 2
-python gstorage.py rename scielo-datalake-raw pid-dates/pid-dates-latest.csv pid-dates/pid-dates-2020-11-27.csv
+python gcs.py rename scielo-datalake-raw pid-dates/pid-dates-latest.csv pid-dates/pid-dates-2020-11-27.csv
 ```
 
 __Get metadata__
 ```shell
-# python gstorage.py metadata BUCKET_NAME SOURCE_FILE
+# python gcs.py metadata BUCKET_NAME SOURCE_FILE
 # example
-python gstorage.py metadata scielo-datalake-raw pid-dates/pid-dates-2020-11-27.csv
+python gcs.py metadata scielo-datalake-raw pid-dates/pid-dates-2020-11-27.csv
 ```
 
 ## Available buckets
