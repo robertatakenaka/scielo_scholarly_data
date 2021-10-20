@@ -25,10 +25,7 @@ def getcsv(url, outdir, fname=None):
     original_fname = csv.geturl().split('/')[-1]
 
     # Define output file name
-    if not fname:
-        fname=original_fname
-    else:
-        fname=fname
+    fname = fname or original_fname
 
     # Save CSV file
     with open(outdir + '/' + fname, 'wb') as f:
