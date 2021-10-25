@@ -1,26 +1,26 @@
-import argparse
+import argparse, textwrap
 import logging
 import os
+from argparse import RawTextHelpFormatter
 
 from scielo_dltools.utils import requests_utils
 
 
-# Check the real path and create log directory
-dir_path = os.path.dirname(os.path.realpath(__file__))
+# Read the LOG_PATH variable and create log file
+doaj_log_path = os.environ["DOAJ_LOG_PATH"]
 
-if not os.path.exists(dir_path + '/logs'):
-    os.makedirs(dir_path + '/logs')
+if not os.path.exists(doaj_log_path):
+    os.makedirs(doaj_log_path)
+
+log_path_file = doaj_log_path + 'getcsv.log.info.txt'
 
 # Define log parameters
-log_path_file = dir_path + '/logs/getcsv.log.info.txt'
-
-logging.basicConfig(filename=log_path_file,
-                    level=logging.INFO,
+logging.basicConfig(filename=log_path_file, level=logging.INFO,
                     format='%(asctime)s %(levelname)-8s %(message)s')
 logger = logging.getLogger(__name__)
 
 
-def getcsv(url, headers, outdir, fname=None):
+def getcsv(url, outdir, fname=None):
     # Check and create directory to save
     if not os.path.exists(outdir):
         msg=('creating directory ', outdir)
@@ -31,7 +31,7 @@ def getcsv(url, headers, outdir, fname=None):
     try:
         msg = 'starting request'
         logger.info(msg)
-        csv = requests_utils.request_url(url, headers)
+        csv = requests_utils.request_url(url, {'User-Agent':'Mozilla/5.0'})
     except requests_utils.RequestUrlError as e:
         logger.error(e)
         return None
@@ -61,22 +61,29 @@ def getcsv(url, headers, outdir, fname=None):
 
 
 def main():
-    # DOAJ URL and Headers
-    url = 'https://doaj.org/csv'
-    headers = {'User-Agent':'Mozilla/5.0'}
+    # Read DOAJ_URL variable
+    url = os.environ['DOAJ_URL']
 
-    parser = argparse.ArgumentParser(
-        description='Get journal metadata in CSV format from https://doaj.org')
+    parser = argparse.ArgumentParser(description=textwrap.dedent('''
+Get journal metadata in CSV format from https://doaj.org.
+It's mandatory to create the environment variables
 
-    parser.add_argument('-d', '--outdir',
-        default=os.path.expanduser('~') + '/doaj_csv/',
-        help='Optional directory to save the CSV file. Default: ~/doaj_csv/' )
+    DOAJ URL:
+    export DOAJ_URL="https://doaj.org/csv"
 
-    parser.add_argument('-o', '--outfile', help='Optional CSV file name ')
+    Defines log recording directory:
+    export DOAJ_LOG_PATH="/tmp/"
+    '''),
+    formatter_class=RawTextHelpFormatter)
+
+    parser.add_argument('-d', '--outdir', help='Directory to save the CSV file',
+    required=True)
+
+    parser.add_argument('-o', '--outfile', help='Optional CSV file name')
 
     args = parser.parse_args()
 
-    getcsv(url, headers, args.outdir, args.outfile)
+    getcsv(url, args.outdir, args.outfile)
 
 
 if __name__ == '__main__':
