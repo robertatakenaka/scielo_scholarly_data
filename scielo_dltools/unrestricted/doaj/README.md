@@ -13,11 +13,13 @@ Inform the DOAJ URL:
 
 `export DOAJ_URL="https://doaj.org/csv"`
 
+Inform the User-Agent request header:
+
+`export USER_AGENT="{\"User-Agent\":\"Mozilla/5.0\"}"`
 
 Defines log recording directory:
 
-`export DOAJ_LOG_PATH="/tmp/"`
-
+`export DOAJ_LOG_FILE_PATH="/tmp/"`
 
 ### Usage
 
@@ -25,6 +27,7 @@ __Show help__
 
 ```bash
 python3 scielo_dltools/unrestricted/doaj/getcsv.py -h
+
 ```
 
 output:
@@ -40,6 +43,7 @@ optional arguments:
   -o OUTFILE, --outfile OUTFILE
                         Optional CSV file name
 ```
+
 __Example__
 
 ```bash
