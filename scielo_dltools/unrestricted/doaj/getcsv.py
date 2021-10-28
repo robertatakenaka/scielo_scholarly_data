@@ -13,7 +13,7 @@ doaj_log_file_path = os.environ["DOAJ_LOG_FILE_PATH"]
 if not os.path.exists(doaj_log_file_path):
     os.makedirs(doaj_log_file_path)
 
-log_path_file = os.path.join(doaj_log_file_path + 'doaj_getcsv.log.info.txt')
+log_path_file = os.path.join(doaj_log_file_path, 'doaj_getcsv.log.info.txt')
 
 # Define log parameters
 logging.basicConfig(filename=log_path_file, level=logging.INFO,
@@ -48,7 +48,7 @@ def getcsv(url, outdir, fname=None):
 
     # Save CSV file
     try:
-        with open(outdir + '/' + fname, 'wb') as f:
+        with open(os.path.join(outdir, fname), 'wb') as f:
             msg = ('saving csv file %s in %s' % (fname, outdir))
             logger.info(msg)
             f.write(csv.read())
@@ -61,7 +61,6 @@ def getcsv(url, outdir, fname=None):
     # Log end of process
     msg = 'end of process'
     logging.info(msg)
-
 
 
 def main():
