@@ -32,6 +32,7 @@ def download_file(bucket_name, source_file_name, destination_file_name):
 def upload_file(bucket_name, source_file_name, destination_file_name):
     bucket = _connect(bucket_name)
     blob = bucket.blob(destination_file_name)
+    blob.chunk_size = 2 * 1024 * 1024 # 2 MBytes
     blob.metadata = {'upload_datetime': datetime.utcnow()}
 
     try:
