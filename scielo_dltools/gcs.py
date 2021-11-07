@@ -1,6 +1,6 @@
 import argparse
 
-from libs.gstorage import (
+from scielo_dltools.libs.gstorage import (
     download_file,
     get_metadata,
     list_content,

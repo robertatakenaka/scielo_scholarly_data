@@ -1,6 +1,6 @@
 import argparse
 
-from libs.gbigquery import (
+from scielo_dltools.libs.gbigquery import (
     create_dataset,
     load_table_from_uri,
 )
