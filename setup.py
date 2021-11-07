@@ -4,6 +4,7 @@ from setuptools import setup, find_packages
 install_requirements=[
     'google-cloud-bigquery',
     'google-cloud-storage',
+    'scielo_scholarly_data',
 ]
 
 setup(
