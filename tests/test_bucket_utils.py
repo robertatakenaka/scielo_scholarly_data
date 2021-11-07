@@ -26,3 +26,16 @@ class TestBucketUtils(unittest.TestCase):
     def test_get_bucket_name_invalid(self):
         gspath = 'g://scielo-datalake-raw/index/doaj/journal-metadata.csv'
         self.assertIsNone(get_bucket_name(gspath))
+
+    def test_get_directory_no_file_informed(self):
+        gspath = 'gs://scielo-datalake-raw/index/portal-issn/'
+        self.assertEqual(get_directory(gspath), 'index/portal-issn')
+
+    def test_get_directory_file_informed(self):
+        gspath = 'gs://scielo-datalake-standardized/index/portal-issn/journal-metadata-scl.jsonl'
+        self.assertEqual(get_directory(gspath), 'index/portal-issn')
+
+    def test_get_directory_invalid(self):
+        gspath = '://scielo-datalake-raw/index/scielo/'
+        self.assertIsNone(get_directory(gspath))
+
