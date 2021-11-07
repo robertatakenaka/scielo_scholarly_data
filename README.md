@@ -9,6 +9,7 @@ SciELO Data Lake Tools is a repository which contains a set of tools to insert d
 virtualenv -p python3.9 .venv
 source .venv/bin/activate
 pip install -r requirements.txt
+pip install .
 ```
 
 ## Environment variables
@@ -77,3 +78,9 @@ python gcs.py metadata scielo-datalake-raw pid-dates/pid-dates-2020-11-27.csv
 - scielo-datalake-raw
 - scielo-datalake-standardized
 - scielo-datalake-gold
+
+
+## How to run automated tests?
+```bash
+python setup.py test
+```
