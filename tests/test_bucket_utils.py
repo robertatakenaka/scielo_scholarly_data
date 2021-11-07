@@ -39,3 +39,17 @@ class TestBucketUtils(unittest.TestCase):
         gspath = '://scielo-datalake-raw/index/scielo/'
         self.assertIsNone(get_directory(gspath))
 
+    def test_get_file_name(self):
+        gspath = 'gs://scielo-datalake-raw/index/scimago/journal-indicators/scimago_d_2004.csv'
+        self.assertEqual(get_file_name(gspath), 'scimago_d_2004.csv')
+
+    def test_get_file_name_without_extension(self):
+        gspath = 'gs://scielo-datalake-raw/index/scimago/journal-indicators/scimago_d_2004'
+        self.assertEqual(get_file_name(gspath), 'scimago_d_2004')
+
+    def test_get_file_name_separate_extension(self):
+        gspath_no_filo_informed = 'gs://scielo-datalake-raw/index/scielo/scielo-analytics-reports/'
+        self.assertEqual(get_file_name(gspath_no_filo_informed, separate_extension=True), ('', ''))
+
+        gspath_file_informed = 'gs://scielo-datalake-gold/index/scimago/journal-indicators/scimago_d_2005.csv'
+        self.assertEqual(get_file_name(gspath_file_informed, separate_extension=True), ('scimago_d_2005', '.csv'))

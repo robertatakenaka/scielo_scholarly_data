@@ -17,3 +17,8 @@ def get_directory(gs_path):
     if match and len(match.groups()) == 2:
         return match.group(2)
 
+def get_file_name(file_path, separate_extension=False):
+    file_name = os.path.basename(file_path)
+    if separate_extension:
+        return os.path.splitext(file_name)
+    return file_name
