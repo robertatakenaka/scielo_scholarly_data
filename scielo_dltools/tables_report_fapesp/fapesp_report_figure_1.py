@@ -6,6 +6,7 @@ import os
 
 from scielo_dltools.libs import gstorage
 
+
 def create_table(rows, cols):
 	table = []
 	for row in range(rows):
@@ -79,11 +80,12 @@ def write_table(arq, table, rows_to_write):
 		writer = csv.writer(data, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
 		for cols in table_to_write:
 			writer.writerow(cols)
-	
+
+
 def main():
-	parser = argparse.ArgumentParser(description = 'Creates a dataset to produce figure 1 of the FAPESP report with data from the Data Lake.')
-	parser.add_argument('-d', '--file_to_download', dest = 'path_file_to_download', required = True, help = 'Path file to download from Data Lake.')
-	parser.add_argument('-u', '--file_to_upload', dest = 'path_file_to_upload', required = True, help = 'Path file to upload to Data Lake.')
+	parser = argparse.ArgumentParser(description='Creates a dataset to produce figure 1 of the FAPESP report with data from the Data Lake.')
+	parser.add_argument('-d', '--file_to_download', dest='path_file_to_download', required=True, help='Path file to download from Data Lake.')
+	parser.add_argument('-u', '--file_to_upload', dest='path_file_to_upload', required=True, help='Path file to upload to Data Lake.')
 	arguments = parser.parse_args()
 	
 	temp, path = tempfile.mkstemp()
@@ -104,6 +106,7 @@ def main():
 		'status change year',
 		'status changed to'
 	]
+
 	rows_to_write = [
 		'year',
 		'current',
@@ -125,4 +128,3 @@ def main():
 	
 if __name__ == '__main__':
 	main()
-
