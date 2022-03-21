@@ -22,7 +22,7 @@ def main():
         help = 'Path of the Data Lake to download the file with collection entry and exit dates. e.g: "scielo-datalake-raw/index/scielo/scielo-year-of-entry-exit-bra.csv"')
 
     parser.add_argument('-u', '--file_to_upload', dest = 'path_file_to_upload',
-        required = True, help = 'Path file to upload results to Data Lake.')
+        required = True, help = 'Path file to upload results to Data Lake. e.g: "scielo-datalake-gold/fapesp_report/evolution-indexing.csv"')
 
     arguments = parser.parse_args()
 
