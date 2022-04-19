@@ -1,0 +1,83 @@
+/*
+citing_pid: PID do documento citante
+citing_issn: ISSN do periódico citante (pode ser uma lista, se houver + de um)
+citing_year: Ano de publicação do documento citante
+cited_year: Ano de publicação da referência citada
+cited_vol: Volume da referência citada
+cited_journal: Título do periódico citado
+cited_doi: DOI do referência citada (se houver e for confiável)
+cited_doc_type: Tipo de publicação da referência citada (journal)
+
+
+cited_journal_std: Título do periódico citado atribuído pelo Converter ao consultar uma base de dados 
+cited_num: na ausência de volume, indica o número (há periódicos que não adotam volume)
+citing_ref_pid: id da referência
+cited_source: na ausência do título do periódico (v30), inclui título da fonte (campo v18). O operador do markup pode ter identifcado o título do periódico com a tag errada
+citing_filename: arquivo html ou xml
+
+mfn=     1
+  2  "S0325-2957(04)03800100002"
+  4  "v38n1"
+ 11  "Expert Committee on the Diagnosis and Classification of Diabetes Mellitus"
+ 12  "Report of the Expert Committee on the Diagnosis and Classification of Diabetes Mellitus^len"
+ 14  "1183-97"
+ 30  "Diabetes Care"
+ 31  "20"
+ 32  "7"
+ 35  "0149-5992"
+ 64  "1997"
+ 65  "19970000"
+118  "1"
+700  "134"
+701  "1"
+702  "c:\scielo\serial\abcl\v38n1\markup\v38n1a02.htm"
+705  "S"
+706  "c"
+708  "30"
+709  "article"
+801  "Diabetes Care"
+865  "20040300"
+880  "S0325-2957200400010000200001^carg"
+882  "^v38^n1"
+936  "^i0325-2957^y2004^o1"
+999  "../bases-work/abcl/abcl"
+
+*/
+
+
+,if p(v30) or p(v31) or p(v32) then
+
+    ,'{',
+        ,'"citing_filename": "',replace(v702^*, '\', '/'),'", ',
+        ,'"citing_pid": "',s(v880^*)*0.23,'", ',
+        ,'"citing_ref_pid": "',v880^*,'", ',
+        ,'"citing_issn": "',s(v880^*)*1.9,'", ',
+        ,'"citing_year": "',s(v865^*)*0.4,'", ',
+        ,'"cited_year": "',s(v65^*)*0.4,'", ',
+
+        ,if p(v35) then
+            ,'"cited_issn": "',s(v35^*),'", ',
+        ,fi,
+        ,if p(v31) then
+            ,'"cited_vol": "',v31^*,'", ',
+        ,else,
+            ,'"cited_num": "',v32^*,'", ',
+        ,fi,
+        ,if p(v30) then
+            ,'"cited_journal": "',replace(v30^*, '"', '\"'),'", ',
+        ,else,
+            ,if p(v18) then
+                ,'"cited_source": "',replace(v18^*, '"', '\"'),'", ',
+            ,fi,
+        ,fi,
+        ,if p(v801) then
+            ,'"cited_journal_std": "',v801^*,'", ',
+        ,fi,
+        ,if p(v237) then
+            ,'"cited_doi": "',v237^*,'", ',
+        ,fi,
+        ,'"cited_doc_type": "journal"',
+
+    ,'}',#,
+
+,fi,
