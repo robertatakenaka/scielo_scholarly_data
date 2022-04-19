@@ -1,0 +1,37 @@
+/*
+pid: id do documento
+aff_id: identificador da afiliação
+standardized_country: país
+standardized_city: cidade
+standardized_state: estado
+standardized_orgname: instituição
+
+
+240
+a['i'] = aff.id
+a['p'] = aff.i_country (2-dig-code)
+a['c'] = item.city
+a['s'] = item.state
+a['_'] = item.orgname
+
+240  "Universidade Federal do Cear�^cFortaleza^iaff01^pBR^sCear�"
+240  "Pontif�cia Universidade Cat�lica do Rio de Janeiro^cRio de Janeiro^iaff02^pBR^sRio de Janeiro"
+240  "Universidade Federal do Cear�^cFortaleza^iaff03^pBR^sCear�"
+
+*/
+
+
+,if p(v240) then
+    ,(,
+        ,'{',
+            ,'"pid": "',v880^*[1],'", ',
+            ,'"aff_id": "',v240^i,'", ',
+            ,|"aff_orgname": "|v240^*|", |,
+            ,|"aff_city": "|v240^c|", |,
+            ,|"aff_state": "|v240^s|", |,
+            ,|"aff_country": "|v240^p|", |,
+            ,'"aff_status": "standardized"',
+        ,'}',#,
+    ,),
+
+,fi,

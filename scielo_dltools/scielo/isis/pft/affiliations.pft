@@ -1,0 +1,60 @@
+/*
+pid: id do documento
+id: identificador da afiliação
+label: caracter que indica a referência cruzada com o autor
+email: email do autor correspondente
+orgdiv3: subdivisão nível 3 da afiliação
+orgdiv2: subdivisão nível 2 da afiliação
+orgdiv1: subdivisão nível 1 da afiliação
+country: país
+city: cidade
+state: estado
+orgname: instituição
+
+70
+a['l'] = item.label
+a['i'] = item.id
+a['e'] = item.email
+a['3'] = item.orgdiv3
+a['2'] = item.orgdiv2
+a['1'] = item.orgdiv1
+a['p'] = item.country
+a['c'] = item.city
+a['s'] = item.state
+a['_'] = item.orgname
+
+ 70  "Universidade Federal do Cear�^cFortaleza^elycariao-d@ufc.br^iaff01^lI^pBrazil^sCear�"
+ 70  "Pontif�cia Universidade Cat�lica do Rio de Janeiro^cRio de Janeiro^emalvesjor@gmail.com^iaff02^lII^pBrazil^sRio de Janeiro"
+ 70  "Universidade Federal do Cear�^cFortaleza^eanabmilk@gmail.com^iaff03^lIII^pBrazil^sCear�"
+
+*/
+
+
+,if p(v70) then
+
+    ,(,
+        ,'{',
+            ,'"pid": "',v880^*[1],'", ',
+            ,'"aff_id": "',v70^i,'", ',
+
+            ,|"aff_orgname": "|v70^o|", |,
+            ,if a(v70^o) then,
+                ,|"aff_orgname": "|v70^*|", |,
+            ,fi
+
+            ,|"aff_orgdiv1": "|v70^d|", |,
+            ,if a(v70^d) then,
+                ,|"aff_orgdiv1": "|v70^1|", |,
+            ,fi
+
+            ,|"aff_orgdiv2": "|v70^2|", |,
+            ,|"aff_orgdiv3": "|v70^3|", |,
+
+            ,|"aff_city": "|v70^c|", |,
+            ,|"aff_state": "|v70^s|", |,
+            ,|"aff_country": "|v70^p|", |,
+
+            ,'"aff_status": "original"',
+        ,'}',#,
+    ,),
+,fi,
