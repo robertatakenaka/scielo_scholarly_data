@@ -1,0 +1,53 @@
+,if p(v58) and p(v60) then,
+	,if nocc(v58)=nocc(v60) then,
+		,(,
+			,'{',
+			,'"processing_date": "',ref(mfn-1,v91[1]*0.8),'", ',
+			,'"pid": "',v880[1],'", ',
+			,'"filename": "',replace(v702[1],'\','/'),'", ',
+			,'"funding-source": "',v58,'", ',
+			,'"award-id": "',v60,'", ',
+			,'"ign": ""'
+			,'}',
+		,),
+
+	,else,
+		,if nocc(v58) = 1 then
+			,(,
+				,'{',
+				,'"processing_date": "',ref(mfn-1,v91[1]*0.8),'", ',
+				,'"pid": "',v880[1],'", ',
+				,'"filename": "',replace(v702[1],'\','/'),'", ',
+				,'"funding-source": "',v58[1],'", ',
+				,'"award-id": "',v60,'", ',
+				,'"ign": ""'
+				,'}',
+			,),
+
+		,else,
+			,if nocc(v60) = 1 then
+				,(,
+					,'{',
+					,'"processing_date": "',ref(mfn-1,v91[1]*0.8),'", ',
+					,'"pid": "',v880[1],'", ',
+					,'"filename": "',replace(v702[1],'\','/'),'", ',
+					,'"funding-source": "',v58,'", ',
+					,'"award-id": "',v60[1],'", ',
+					,'"ign": ""'
+					,'}',
+				,),
+
+			,else,
+				/* MULTIPLE SOURCES AND AWARD ID SEPARATED BY !! */
+				,'{',
+				,'"processing_date": "',ref(mfn-1,v91[1]*0.8),'", ',
+				,'"pid": "',v880[1],'", ',
+				,'"filename": "',replace(v702[1],'\','/'),'", ',
+				,'"multiple-funding-source": "',(v58+| !! |) ,'", ',
+				,'"multiple-award-id": "',(v60+| !! |) ,'", ',
+				,'"ign": ""'
+				,'}',
+			,fi,
+		,fi,
+	,fi,
+,fi,
